@@ -1,42 +1,47 @@
 {
-	"products": [
-		{
-			"id": "1",
-			"name": "Product 1",
-			"description": "This is product 1",
-			"price": 100
-		},
-		{
-			"id": "2",
-			"name": "Product 2",
-			"description": "This is product 2",
-			"price": 200
-		},
-		{
-			"id": "3",
-			"name": "Product 3",
-			"description": "This is product 3",
-			"price": 300
-		}
-	],
-	"news": [
-		{
-			"id": "1",
-			"title": "News 1",
-			"content": "This is news 1",
-			"category": "sport"
-		},
-		{
-			"id": "2",
-			"title": "News 2",
-			"content": "This is news 2",
-			"category": "politics"
-		},
-		{
-			"id": "3",
-			"title": "News 3",
-			"content": "This is news 3",
-			"category": "economy"
-		}
-	]
+  "dashboard": {
+    "likes": 100999,
+    "comments": 200,
+    "followers": 300
+  },
+  "products": [
+    {
+      "id": "1",
+      "name": "Product 1",
+      "description": "This is product 1",
+      "price": 100
+    },
+    {
+      "id": "2",
+      "name": "Product 2",
+      "description": "This is product 2",
+      "price": 200
+    },
+    {
+      "id": "3",
+      "name": "Product 3",
+      "description": "This is product 3",
+      "price": 300
+    }
+  ],
+  "news": [
+    {
+      "id": "1",
+      "title": "News 1",
+      "content": "This is news 1",
+      "category": "sports"
+    },
+    {
+      "id": "2",
+      "title": "News 2",
+      "content": "This is news 2",
+      "category": "politics"
+    },
+    {
+      "id": "3",
+      "title": "News 3",
+      "content": "This is news 3",
+      "category": "economy"
+    }
+  ]
 }
