@@ -1,6 +1,5 @@
 import React from "react";
 import { News } from ".";
-import { log } from "console";
 
 interface Props {
   news: News[];

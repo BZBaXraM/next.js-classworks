@@ -1,7 +1,10 @@
+import Link from "next/link";
+
 export type Product = {
   id: string;
   name: string;
   price: number;
+  description: string;
 };
 
 interface Props {
@@ -10,14 +13,21 @@ interface Props {
 
 const ProductPage = ({ products }: Props) => {
   return (
-    <div>
-      {products.map((product) => (
-        <div key={product.id}>
-          <h1>{product.name}</h1>
-          <p>{product.price}</p>
-        </div>
-      ))}
-    </div>
+    <>
+      <h1>Products</h1>
+      {products.map((product) => {
+        const { id, name, price } = product;
+        return (
+          <div key={id}>
+            <Link href={`/products/${id}`}>
+              <h2>
+                {id} - {name} - {price}
+              </h2>
+            </Link>
+          </div>
+        );
+      })}
+    </>
   );
 };
 
