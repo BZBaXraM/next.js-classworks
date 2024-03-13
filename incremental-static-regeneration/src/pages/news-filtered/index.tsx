@@ -1,3 +1,4 @@
+import { Article } from "@/types";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
@@ -6,11 +7,6 @@ const fetcher = async () => {
   const response = await fetch("http://localhost:4000/news");
   const data = await response.json();
   return data;
-};
-type Article = {
-  title: string;
-  id: number;
-  category: string;
 };
 
 interface Props {
@@ -34,11 +30,11 @@ const News = ({ news }: Props) => {
   }, [data]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <h1>Loading...</h1>;
   }
 
   if (error) {
-    return <div>Error loading data</div>;
+    return <h1>Error loading data - {error.message}</h1>;
   }
 
   router.push("/filtered-news", undefined, { shallow: true });
@@ -48,9 +44,11 @@ const News = ({ news }: Props) => {
       <h1>News</h1>
       <button onClick={fetchSportsNews}>Fetch Sports News</button>
       {newsList.map((article) => (
-        <h2 key={article.id}>
-          {article.title} {article.category}
-        </h2>
+        <div key={article.id}>
+          <h2>
+            {article.title} {article.category}
+          </h2>
+        </div>
       ))}
     </div>
   );

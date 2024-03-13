@@ -1,4 +1,4 @@
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 
 const fetcher = async () => {
   const response = await fetch("http://localhost:4000/dashboard");
@@ -13,11 +13,11 @@ export default function Dashboard() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <h1>Loading...</h1>;
   }
 
   if (error) {
-    return <div>Error loading data</div>;
+    return <h1>Error loading data - {error.message}</h1>;
   }
 
   if (!data) {
@@ -26,16 +26,14 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Likes: {data.likes}</p>
-      <p>Comments: {data.comments}</p>
-      <p>Followers: {data.followers}</p>
-      <button
-        style={{ marginTop: "10px", background: "red" }}
-        onClick={() => mutateData()}
-      >
-        Refresh
-      </button>
+      <div>
+        <h1>Dashboard</h1>
+        <button onClick={() => mutateData()}>Mutate data</button>
+        <h2>Likes: {data?.likes}</h2>
+        <h2>Posts: {data?.posts}</h2>
+        <h3>Followers: {data?.followers}</h3>
+        <h3>Followings: {data.followings}</h3>
+      </div>
     </div>
   );
 }

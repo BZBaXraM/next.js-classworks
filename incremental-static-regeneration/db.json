@@ -1,8 +1,9 @@
 {
   "dashboard": {
-    "likes": 100999,
-    "comments": 200,
-    "followers": 300
+    "likes": 1009912,
+    "followers": 300,
+    "followings": 200,
+    "posts": 20
   },
   "products": [
     {
@@ -26,22 +27,28 @@
   ],
   "news": [
     {
-      "id": "1",
-      "title": "News 1",
-      "content": "This is news 1",
+      "id": 1,
+      "title": "Sports News 1",
+      "description": "This is sports news 1",
       "category": "sports"
     },
     {
-      "id": "2",
-      "title": "News 2",
-      "content": "This is news 2",
-      "category": "politics"
+      "id": 2,
+      "title": "Politics News 1",
+      "description": "This is politics news 1",
+      "category": "sports"
     },
     {
-      "id": "3",
-      "title": "News 3",
-      "content": "This is news 3",
+      "id": 3,
+      "title": "Economy News 1",
+      "description": "This is economy news 1",
       "category": "economy"
+    },
+    {
+      "id": 4,
+      "title": "Sport News 2",
+      "description": "This is sport news 2",
+      "category": "sports"
     }
   ]
 }

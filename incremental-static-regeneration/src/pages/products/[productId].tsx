@@ -1,5 +1,5 @@
+import { Product } from "@/types";
 import { useRouter } from "next/router";
-import { Product } from ".";
 
 interface Props {
   product: Product;

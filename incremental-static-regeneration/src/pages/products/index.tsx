@@ -1,11 +1,5 @@
+import { Product } from "@/types";
 import Link from "next/link";
-
-export type Product = {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-};
 
 interface Props {
   products: Product[];
