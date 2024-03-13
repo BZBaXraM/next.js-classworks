@@ -14,40 +14,43 @@ interface Props {
 }
 
 const News = ({ news }: Props) => {
-  const { data, error, isLoading, mutate } = useSWR("news", fetcher);
+  // const { data, error, isLoading, mutate } = useSWR("news", fetcher);
   const [newsList, setNewsList] = useState<Article[]>(news);
   const router = useRouter();
 
-  const fetchSportsNews = async () => {
+  const fetchSportEvents = async () => {
     const response = await fetch("http://localhost:4000/news?category=sports");
     const data = await response.json();
+
     setNewsList(data);
+
+    router.push("news-filtered?category=sports", undefined, { shallow: true });
   };
 
-  useEffect(() => {
-    if (!data) return;
-    setNewsList(data);
-  }, [data]);
+  // useEffect(() => {
+  //   if (!data) return;
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
+  //   setNewsList(data);
+  // }, [data]);
 
-  if (error) {
-    return <h1>Error loading data - {error.message}</h1>;
-  }
+  // if (isLoading) {
+  //   return <h1>Loading...</h1>;
+  // }
 
-  router.push("/filtered-news", undefined, { shallow: true });
+  // if (error) {
+  //   return <h1>Error loading data - {error.message}</h1>;
+  // }
 
   return (
     <div>
       <h1>News</h1>
-      <button onClick={fetchSportsNews}>Fetch Sports News</button>
+      <button onClick={fetchSportEvents}>Sports News</button>
       {newsList.map((article) => (
         <div key={article.id}>
           <h2>
             {article.title} {article.category}
           </h2>
+          <p>Category - {article.category}</p>
         </div>
       ))}
     </div>
@@ -58,10 +61,10 @@ export default News;
 
 export async function getServerSideProps(query: any) {
   const { category } = query;
-  const response = await fetch(
-    `http://localhost:4000/news${category ? `?category=${category}` : ""}`
-  );
+  const queryString = category ? "category=sports" : "";
+  const response = await fetch(`http://localhost:4000/news?${queryString}`);
   const data = await response.json();
+
   return {
     props: {
       news: data,
