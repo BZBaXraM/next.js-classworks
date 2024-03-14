@@ -1,4 +1,4 @@
-export const posts = [
+export const blogs = [
   {
     userId: 1,
     id: 1,

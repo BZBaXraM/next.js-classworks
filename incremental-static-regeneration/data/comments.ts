@@ -2,21 +2,21 @@ export const comments = [
   {
     id: "1",
     name: "John Doe",
-    comment: "This is a great product.",
+    description: "Comment 1",
   },
   {
     id: "2",
     name: "Jane Doe",
-    comment: "I love this product!",
+    description: "Comment 2",
   },
   {
     id: "3",
     name: "John Smith",
-    comment: "Thanks for this product.",
+    description: "Comment 3",
   },
   {
     id: "4",
     name: "Jane Smith",
-    comment: "I love this product!",
+    description: "Comment 4",
   },
 ];

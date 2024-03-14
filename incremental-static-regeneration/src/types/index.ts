@@ -15,16 +15,16 @@ export type Product = {
 export type Article = {
   title: string;
   id: number;
-  category: string;
+  category?: string;
 };
 
-export type Comments = {
-  id: number;
+export type Comment = {
+  id: string;
   name: string;
-  comment: string;
+  description: string;
 };
 
-export type Posts = {
+export type Blog = {
   userId: number;
   id: string;
   title: string;

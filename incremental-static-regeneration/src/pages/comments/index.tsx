@@ -1,9 +1,10 @@
-import { Comments } from "@/types";
-import { use, useState } from "react";
+import { Comment } from "@/types";
+import { useState } from "react";
 
 export default function Comments() {
-  const [comments, setComments] = useState<Comments[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [comment, setComment] = useState<string>("");
+  const [update, setUpdateComment] = useState<{ [key: string]: string }>({});
 
   const fetchComments = async () => {
     const res = await fetch("/api/comments");
@@ -12,72 +13,105 @@ export default function Comments() {
   };
 
   const submitComment = async () => {
-    const res = await fetch("/api/comments", {
+    const response = await fetch("/api/comments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ comment }),
     });
-    const result = await res.json();
-    setComments([...comments, result]);
 
-    console.log("submitComment", result, comments, comment);
+    const data = await response.json();
+    console.log(`Data: ${data}`);
+    fetchComments();
   };
 
   const deleteComment = async (id: string) => {
-    const res = await fetch(`/api/comments/${id}`, {
+    const response = await fetch(`/api/comments/${id}`, {
       method: "DELETE",
     });
 
-    let result = null;
-    if (res.headers.get("content-type")?.includes("application/json")) {
-      result = await res.json();
-    }
-
-    await fetchComments();
-    console.log("deleteComment", result, comments);
+    const data = await response.json();
+    console.log(`Deleted data: ${data}`);
+    fetchComments();
   };
 
-  const updateComment = async (id: string, comment: string) => {
-    const res = await fetch(`/api/comments/${id}`, {
+  const updateComment = async (id: string) => {
+    const response = await fetch(`/api/comments/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ comment }),
+      body: JSON.stringify({ id, comment: update[id] }),
     });
-    const result = await res.json();
-    setComments([...comments, result]);
+
+    const data = await response.json();
+    console.log(`Updated data: ${data}`);
+    fetchComments();
   };
 
   return (
     <div>
       <h1>Comments</h1>
-      <button onClick={fetchComments}>Fetch Comments</button>
-      <input
-        type="text"
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      />
-      <button onClick={submitComment}>Submit Comment</button>
-
-      <input
-        type="text"
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      />
-      <button onClick={() => deleteComment(comment)}>Delete Comment</button>
-      <button onClick={() => updateComment(comment, comment)}>
-        Update Comment
+      <button
+        style={{
+          margin: "10px ",
+          backgroundColor: "lightgreen",
+          color: "black",
+        }}
+        onClick={fetchComments}
+      >
+        Fetch Comments
       </button>
-      <ul>
-        {comments.map((comment) => (
-          <li key={comment.id}>
-            {comment.id} - {comment.name}: {comment.comment}
-          </li>
-        ))}
-      </ul>
+      <input
+        type="text"
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
+      <button
+        style={{
+          margin: "10px ",
+          backgroundColor: "lightblue",
+          color: "black",
+        }}
+        onClick={submitComment}
+      >
+        Submit new Comment
+      </button>
+      {comments.map((item) => (
+        <div key={item.id}>
+          <h2>
+            id: {item.id} - {item.name}
+          </h2>
+          <input
+            type="text"
+            value={update[item.id] || ""}
+            onChange={(e) =>
+              setUpdateComment({ ...update, [item.id]: e.target.value })
+            }
+          />
+          <button
+            style={{
+              margin: "10px ",
+              backgroundColor: "lightblue",
+              color: "black",
+            }}
+            onClick={() => updateComment(item.id)}
+          >
+            Update Comment
+          </button>
+          <button
+            style={{
+              margin: "10px ",
+              backgroundColor: "lightcoral",
+              color: "black",
+            }}
+            onClick={() => deleteComment(item.id)}
+          >
+            Delete Comment
+          </button>
+        </div>
+      ))}
     </div>
   );
 }

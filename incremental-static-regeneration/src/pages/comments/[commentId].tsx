@@ -1,22 +1,25 @@
-import { Comments } from "@/types";
+import { Comment } from "@/types";
+import { comments } from "../../../data/comments";
 
 interface Props {
-  comment: Comments;
+  comment: Comment;
 }
 
 export default function CommentDetails({ comment }: Props) {
   return (
     <div>
       <h3>{comment.name}</h3>
-      <p>{comment.comment}</p>
+      <p>{comment.description}</p>
     </div>
   );
 }
 
 export async function getServerSideProps(context: any) {
-  const { commentId } = context.params;
-  const res = await fetch(`http://localhost:3000/api/comments/${commentId}`);
-  const comment = await res.json();
+  const {
+    params: { commentId },
+  } = context;
+
+  const comment = comments.find((comment) => comment.id === commentId);
 
   return {
     props: {

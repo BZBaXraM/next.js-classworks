@@ -5,23 +5,24 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { commentId } = req.query;
 
   if (typeof commentId === "string") {
-    const comment = comments.find((comment) => comment.id === commentId);
+    const comment = comments.find((item) => item.id === commentId);
+    const index = comments.findIndex((item) => item.id === commentId);
+    console.log(`comment: ${comment}`);
 
-    const index = comments.findIndex((comment) => comment.id === commentId);
-
-    if (req.method === "GET") return res.status(200).json(comment);
-
-    if (req.method === "DELETE") {
-      if (index !== -1) {
-        comments.splice(index, 1);
-      }
-      return res.status(204).json(comments);
+    if (req.method === "GET") {
+      return res.status(200).json(comment);
     }
-
+    if (req.method === "DELETE") {
+      comments.splice(index, 1);
+      return res.status(200).json(comments);
+    }
     if (req.method === "PUT") {
-      const { comment } = req.body;
-      comments[index] = { ...comments[index], comment };
-      return res.status(200).json(comments[index]);
+      if (index !== -1) {
+        comments[index] = { ...comments[index], name: req.body.comment };
+        return res.status(200).json(comments[index]);
+      } else {
+        return res.status(404).json({ message: "Comment not found" });
+      }
     }
   }
 }
