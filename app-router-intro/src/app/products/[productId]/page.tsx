@@ -27,8 +27,11 @@ export default function ProductDetails({ params }: Props) {
     <div>
       <button onClick={handleGoBack}>Go Back</button>
       <h1>Product Details</h1>
-      <h2>{findId.name}</h2>
-      <p>{findId.description}</p>
+      <h2></h2>
+      <h2>
+        {findId.id}: {findId.name}
+      </h2>
+      <p>{findId.body}</p>
     </div>
   );
 }

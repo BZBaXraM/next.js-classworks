@@ -1,3 +1,5 @@
+import React from "react";
+
 interface Props {
   params: {
     slug: string[];
@@ -7,16 +9,12 @@ interface Props {
 export default function Reviews({ params }: Props) {
   console.log("params", params);
   if (params.slug.length < 4) {
-    return (
-      <div>
-        <h1>Reviews</h1>
-        <p>Hi!</p>
-      </div>
-    );
+    return <h1>Not much params</h1>;
   }
   return (
     <div>
-      <h1>Reviews</h1>
+      <h1>more than three</h1>
+      <h2>slug - {params.slug.join("/")}</h2>
     </div>
   );
 }

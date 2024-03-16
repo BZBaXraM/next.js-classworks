@@ -1,3 +1,3 @@
 export default function AboutNotFound() {
-  return <h1>Not Found</h1>;
+  return <h1>About Not Found</h1>;
 }

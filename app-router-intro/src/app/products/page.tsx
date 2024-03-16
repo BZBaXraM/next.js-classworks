@@ -1,21 +1,23 @@
 import Link from "next/link";
 import { products } from "../../../lib/data";
 
-export default function Products() {
+const Products = () => {
   return (
     <div>
       <h1>Products</h1>
       <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            <Link href={`/products/${product.id}`}>
+        {products.map(({ id, name }) => (
+          <Link key={id} href={`/products/${id}`}>
+            <li>
               <h3>
-                {product.id}: {product.name}
+                {id}: {name}
               </h3>
-            </Link>
-          </li>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>
   );
-}
+};
+
+export default Products;
