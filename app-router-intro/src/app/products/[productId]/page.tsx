@@ -1,5 +1,5 @@
 "use client";
-import { notFound, useRouter } from "next/navigation";
+import { notFound, usePathname, useRouter } from "next/navigation";
 import { products } from "../../../../lib/data";
 
 interface Props {
@@ -10,6 +10,9 @@ interface Props {
 
 export default function ProductDetails({ params }: Props) {
   const router = useRouter();
+
+  const pathname = usePathname();
+  console.log(`pathname: ${pathname}`);
 
   const handleGoBack = () => {
     router.back();
