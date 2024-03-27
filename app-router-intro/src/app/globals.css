@@ -121,3 +121,7 @@ a {
     font-weight: 600;
     color: #0969dfb8;
 }
+
+.nav_item:hover {
+    color: #0969df;
+}

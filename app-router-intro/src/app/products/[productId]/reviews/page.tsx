@@ -1,3 +1,3 @@
 export default function Reviews() {
-  return <div>Review Detail</div>;
+  return <div className={"container"}>Review Detail</div>;
 }
