@@ -1,19 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { reviews } from "../../../../../../../lib/reviews";
 
-export async function GET(req: NextRequest) {
-    const searchParams = req.nextUrl.searchParams;
-    const query = searchParams.get("query");
-    const filteredReviews = query
-        ? reviews.filter((review) => review.body.includes(query))
-        : reviews;
-    console.log(filteredReviews);
-
-    return NextResponse.json({ filteredReviews });
-}
-
-export async function PATCH(
-    req: NextRequest,
+export async function GET(
+    request: NextRequest,
     {
         params,
     }: {
@@ -22,9 +11,40 @@ export async function PATCH(
         };
     }
 ) {
-    const review = reviews.find(
+    const review = reviews.find((r) => r.id === Number(params.productId));
+    console.log("productId", params.productId);
+
+    return new NextResponse(JSON.stringify(review));
+}
+// export async function GET(req: NextRequest) {
+//     const searchParams = req.nextUrl.searchParams;
+//     const query = searchParams.get("query");
+//     const filteredReviews = query
+//         ? reviews.filter((review) => review.title.includes(query))
+//         : reviews;
+//     console.log(filteredReviews);
+
+//     return NextResponse.json({ filteredReviews });
+// }
+
+export async function PATCH(
+    request: NextRequest,
+    {
+        params,
+    }: {
+        params: {
+            productId: string;
+        };
+    }
+) {
+    const body = await request.json();
+    const { title } = body;
+
+    const index = reviews.findIndex(
         (review) => review.id === Number(params.productId)
     );
-    const body = await req.json();
-    return new NextResponse(JSON.stringify(review));
+
+    reviews[index].title = title;
+
+    return new NextResponse(JSON.stringify(reviews[index]));
 }

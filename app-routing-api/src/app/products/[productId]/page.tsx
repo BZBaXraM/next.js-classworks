@@ -1,40 +1,44 @@
 "use client";
-import { notFound, usePathname, useRouter } from "next/navigation";
-import { products } from "../../../../lib/data";
+
+import { useState } from "react";
+import { reviews } from "../../../../lib/reviews";
 
 interface Props {
-    params: {
-        productId: string;
-    };
+  params: {
+    productId: string;
+    reviewId: number;
+  };
 }
 
-export default function ProductDetails({ params }: Props) {
-    const router = useRouter();
+export default function ReviewDetail({ params }: Props) {
+  const [productId, reviewId] = params;
+  const [title, setTitle] = useState<string>("");
 
-    const pathname = usePathname();
-    console.log(`pathname: ${pathname}`);
+  const review = reviews.find((review) => review.id === Number(reviewId));
 
-    const handleGoBack = () => {
-        router.back();
-    };
+  const onSubmit = async () => {
+    await fetch(`/api/products/${productId}/reviews/${reviewId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title }),
+    });
+  };
 
-    const findId = products.find(
-        (product) => product.id === Number(params.productId)
-    );
-    console.log("findId", findId);
-    if (!findId) {
-        return notFound();
-    }
-
-    return (
-        <div>
-            <button onClick={handleGoBack}>Go Back</button>
-            <h1>Product Details</h1>
-            <h2></h2>
-            <h2>
-                {findId.id}: {findId.name}
-            </h2>
-            <p>{findId.body}</p>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Review Detail Page</h1>
+      <h2>product id: {productId}</h2>
+      <h2>review id: {reviewId}</h2>
+      <p>{review?.name}</p>
+      <p>{review?.body}</p>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <button onClick={onSubmit}>Submit</button>
+    </div>
+  );
 }

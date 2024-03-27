@@ -3,10 +3,10 @@ export type Product = {
     id: number;
     name: string;
     body: string;
-  };
-  
-  export type Review = {
+};
+
+export type Review = {
     id: number;
     name: string;
-    body: string;
-  }
+    title: string;
+};
